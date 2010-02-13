@@ -265,9 +265,13 @@ will be used over paths too.)"
     (setq lisp-indent-function 'clojure-indent-function)
 
     ;; set paredit keys
-    (when (and (featurep 'paredit) paredit-mode (>= paredit-version 21))
-      (define-key slime-repl-mode-map "{" 'paredit-open-curly)
-      (define-key slime-repl-mode-map "}" 'paredit-close-curly))))
+    (when (and (featurep 'paredit) paredit-mode)
+      (when (>= paredit-version 21)
+        (define-key slime-repl-mode-map "{" 'paredit-open-curly)
+        (define-key slime-repl-mode-map "}" 'paredit-close-curly))
+      (when (= paredit-version 20)
+        (define-key slime-repl-mode-map "{" 'paredit-open-brace)
+        (define-key slime-repl-mode-map "}" 'paredit-close-brace)))))
 
 ;; Debugger
 
